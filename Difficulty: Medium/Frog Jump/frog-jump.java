@@ -1,26 +1,14 @@
-import java.util.*;
 class Solution {
-      int[] dp;
-
-    int minCost(int[] height) {
-        dp = new int[height.length];
-        Arrays.fill(dp, -1);
-        return solve(0, height);
-    }
-    
-    int solve(int i, int[] h ) {
-        if(dp[i]!=-1){
-            return dp[i];
+    int minCost(int[] heights) {
+        int n = heights.length;
+        int dp[] = new int[n];
+         dp[0]=0;
+        for(int i =1;i<n;i++){
+            int val1 = Math.abs(heights[i]-heights[i-1])+dp[i-1];
+               int val2 = val1;
+            if(i>1) val2 = Math.abs(heights[i]- heights[i-2])+dp[i-2];
+             dp[i] = Math.min(val1,val2);
         }
-        if (i == h.length - 1) return 0; 
-        int cost1 = Math.abs(h[i] - h[i + 1]) + solve(i + 1, h);
-        int cost2 = Integer.MAX_VALUE;
-        if (i + 2 < h.length) {
-            cost2 = Math.abs(h[i] - h[i + 2]) + solve(i + 2, h);
-        }
-        dp[i] = Math.min(cost1, cost2);
-        return Math.min(cost1, cost2);
+        return dp[n-1];
     }
-
-  
 }
