@@ -6,8 +6,6 @@ class Solution {
         for(int val :arr ){
             sum+=val;
            sq_sum += (long) val * val;
-
-            
         }
         
        long ex_sum = (long)n*(n+1)/2;
