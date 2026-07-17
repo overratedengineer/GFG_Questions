@@ -1,20 +1,24 @@
 class Solution {
     int maxLength(int arr[]) {
-        int sum = 0;
-        int j = 0;
-        int max = 0;
-        HashMap<Integer, Integer> map = new HashMap<>();
-        map.put(0, -1); 
-        for (int val : arr) {
-            sum += val;
-            if (map.containsKey(sum)) {
-                int prevIndex = map.get(sum);
-                max = Math.max(max, j - prevIndex);
-            } else {
-                map.put(sum, j);
+        int n = arr.length;
+        int target =0;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int p =0;
+        int l =0;
+    
+        for(int i=0;i<n;i++){
+             p+=arr[i];
+             if(p==target) l =i+1;
+            int needed = p-target;
+            if(map.containsKey(needed)){
+                int idx = map.get(needed);
+                l = Math.max(i-idx,l);
             }
-            j++;
+            if(!map.containsKey(p)){
+                map.put(p,i);
+            }
         }
-        return max;
+        return l;
+        
     }
 }
