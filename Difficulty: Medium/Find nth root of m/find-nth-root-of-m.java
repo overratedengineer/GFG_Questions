@@ -4,7 +4,7 @@ class Solution {
        int e=m;
        while(s<=e){
            int mid = (s+e)/2;
-           int val = 1;
+           long val = 1;
            for(int i=1;i<=n;i++){
                val*=mid;
            }
