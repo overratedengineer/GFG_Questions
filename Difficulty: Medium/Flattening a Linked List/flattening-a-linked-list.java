@@ -1,32 +1,32 @@
 class Solution {
-    Node merge(Node a, Node b) {
 
-        Node dummy = new Node(0);
-        Node temp = dummy;
+    public Node flatten(Node head) {
+        if (head == null) return null;
+\
+        PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> a.data - b.data);
+        Node temp = head;
+        while (temp != null) {
+            pq.add(temp);
+            temp = temp.next;
+        }
 
-        while (a != null && b != null) {
-            if (a.data < b.data) {
-                temp.bottom = a;
-                temp = a;
-                a = a.bottom;
-            } else {
-                temp.bottom = b;
-                temp = b;
-                b = b.bottom;
+        Node dummy = new Node(-1);
+        Node tail = dummy;
+
+        while (!pq.isEmpty()) {
+            Node cur = pq.poll();
+
+            tail.bottom = cur;
+            tail = tail.bottom;
+
+            if (cur.bottom != null) {
+                pq.add(cur.bottom);
             }
         }
 
-        if (a != null) temp.bottom = a;
-        else temp.bottom = b;
-        return dummy.bottom;
-    }
+        tail.next = null;
+        tail.bottom = null;
 
-    public Node flatten(Node root) {
-        if (root.next == null) {
-            return root;
-        }
-        root.next = flatten(root.next);
-        root = merge(root, root.next);
-        return root;
+        return dummy.bottom;
     }
 }
